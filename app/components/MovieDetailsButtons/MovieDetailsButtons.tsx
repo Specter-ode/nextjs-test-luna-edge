@@ -17,6 +17,7 @@ const MovieDetailsButtons: React.FC<IProps> = ({ openedMovie }) => {
   };
   const handleRemove = () => {
     dispatch(removeFromFavMovies(openedMovie.imdbID));
+    router.back();
   };
 
   return (
