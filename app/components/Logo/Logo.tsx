@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
   return (
     <Link href="/" className={`flex items-center transition duration-500 hover:scale-110`}>
       <Image
-        src="/images/logo.png"
+        src="/logo.png"
         alt="logo"
         width={50}
         height={50}

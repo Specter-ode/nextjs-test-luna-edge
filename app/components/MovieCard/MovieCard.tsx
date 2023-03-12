@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 const MovieCard: React.FC<IMovie> = ({ Poster, Title, imdbID, Year }) => {
-  const imgURL = Poster === 'N/A' ? '/images/img-not-available.jpg' : Poster;
+  const imgURL = Poster === 'N/A' ? '/img-not-available.jpg' : Poster;
 
   const { pathname } = useRouter();
   const linkUrl = pathname === '/search' ? `/movie/${imdbID}` : `/favourite/${imdbID}`;

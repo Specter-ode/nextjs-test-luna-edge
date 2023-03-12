@@ -9,7 +9,7 @@ interface IProps {
 const MovieDetails: React.FC<IProps> = ({ movie }) => {
   const { Poster, Title, Plot, Released, Actors, imdbRating, Genre } = movie;
 
-  const imgURL = Poster === 'N/A' ? '/images/img-not-available.jpg' : Poster;
+  const imgURL = Poster === 'N/A' ? '/img-not-available.jpg' : Poster;
   const description = Plot === 'N/A' ? 'No movie description available' : Plot;
   const genres = Genre === 'N/A' ? 'No movie genres available' : Genre;
   const rating = imdbRating === 'N/A' ? 'No movie rating available' : imdbRating;
