@@ -1,3 +1,3 @@
-# nextjs-test-luna-edge
 # Movie Search App
-# Technolodgies: Next.js, Typescript, Tailwind CSS, Redux Toolkit, Axios
+## Technolodgies: Next.js, Typescript, Tailwind CSS, Redux Toolkit, Axios
+For start local work need to get OMDb API_KEY, API_URL and add to env. After that npm run dev
