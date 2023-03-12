@@ -1,10 +1,20 @@
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import MovieList from '@/components/MovieList/MovieList';
 import Layout from '@/Layout/Layout';
+import { setFavMovies } from '@/redux/movies/movies-slice';
+import { useEffect } from 'react';
 
 const FavouriteMoviesPage = () => {
   const favouriteMovies = useAppSelector(store => store.movies.favMovies);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const savedFavMovies = localStorage.getItem('favMovies');
+    if (savedFavMovies && savedFavMovies.length) {
+      console.log('юз єфект сработал');
+      dispatch(setFavMovies(JSON.parse(savedFavMovies)));
+    }
+  }, [dispatch]);
   return (
     <Layout
       title="Favourite movies"

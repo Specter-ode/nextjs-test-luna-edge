@@ -15,9 +15,12 @@ const moviesSlice = createSlice({
     removeFromFavMovies: (store, { payload }: PayloadAction<string>) => {
       store.favMovies = store.favMovies.filter(movie => movie.imdbID !== payload);
     },
+    setFavMovies: (store, { payload }: PayloadAction<IMovieDetails[]>) => {
+      store.favMovies = payload;
+    },
   },
   extraReducers: () => {},
 });
 
-export const { addToFavMovies, removeFromFavMovies } = moviesSlice.actions;
+export const { addToFavMovies, removeFromFavMovies, setFavMovies } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -13,11 +13,14 @@ const MovieDetailsButtons: React.FC<IProps> = ({ openedMovie }) => {
   const favouriteMovies = useAppSelector(store => store.movies.favMovies);
   const isFavouriteMovie = favouriteMovies.find(m => m.imdbID === openedMovie.imdbID);
   const handleAdd = () => {
+    const newFavMovies = [...favouriteMovies, openedMovie];
+    localStorage.setItem('favMovies', JSON.stringify(newFavMovies));
     dispatch(addToFavMovies(openedMovie));
   };
   const handleRemove = () => {
+    const newFavMovies = favouriteMovies.filter(movie => movie.imdbID !== openedMovie.imdbID);
+    localStorage.setItem('favMovies', JSON.stringify(newFavMovies));
     dispatch(removeFromFavMovies(openedMovie.imdbID));
-    router.back();
   };
 
   return (

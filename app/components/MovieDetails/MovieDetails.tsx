@@ -1,13 +1,61 @@
-// component MovieDetails.tsx
 import { IMovieDetails } from '@/types/movie';
 import Image from 'next/image';
 import MovieDetailsButtons from '../MovieDetailsButtons/MovieDetailsButtons';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setFavMovies } from '@/redux/movies/movies-slice';
 interface IProps {
   movie: IMovieDetails;
 }
 
 const MovieDetails: React.FC<IProps> = ({ movie }) => {
-  const { Poster, Title, Plot, Released, Actors, imdbRating, Genre } = movie;
+  const [localMovie, setLocalMoVie] = useState<null | IMovieDetails>(null);
+  const { favMovies } = useAppSelector(store => store.movies);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const savedFavMovies = localStorage.getItem('favMovies');
+    if (savedFavMovies && savedFavMovies.length) {
+      console.log('юз єфект сработал');
+      dispatch(setFavMovies(JSON.parse(savedFavMovies)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (router.pathname === '/favourite/[movieId]') {
+      const isFavMovie = favMovies.find(el => el.imdbID === (router.query.movieId as string));
+      if (isFavMovie) {
+        setLocalMoVie(movie);
+        return;
+      }
+      const savedFavMovies = localStorage.getItem('favMovies');
+      if (savedFavMovies && savedFavMovies.length) {
+        const storageFavMovies = JSON.parse(savedFavMovies) as IMovieDetails[];
+        const isFavMovie = storageFavMovies.find(el => el.imdbID === (router.query.movieId as string));
+        if (isFavMovie) {
+          setLocalMoVie(movie);
+          return;
+        }
+        if (!localMovie) {
+          router.push('/404'); // Перенаправление на страницу с ошибкой 404, если params.movieId отсутствует в favoriteMoviesArray
+        }
+      }
+    }
+    if (router.pathname === '/movie/[movieId]') {
+      setLocalMoVie(movie);
+    }
+  }, [favMovies, localMovie, movie, router, router.query.movieId]);
+
+  if (!localMovie)
+    return (
+      <div className="mb-[40px]">
+        <p className=" text-center text-[30px] text-error-color"></p>Movie is not found in favourite
+      </div>
+    );
+
+  const { Poster, Title, Plot, Released, Actors, imdbRating, Genre } = localMovie;
 
   const imgURL = Poster === 'N/A' ? '/img-not-available.jpg' : Poster;
   const description = Plot === 'N/A' ? 'No movie description available' : Plot;
