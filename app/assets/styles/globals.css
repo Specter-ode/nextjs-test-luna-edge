@@ -1,0 +1,39 @@
+/* @import 'app/assets/styles/variables'; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  opacity: 0.4;
+}
+
+.input {
+  @apply h-[47px] w-full rounded-[6px] border border-gray-300 pl-[15px] pr-[62px] text-[12px] font-medium text-second-color shadow-sm outline-none focus:border-[2px] focus:border-accent-color;
+}
+
+.label {
+  @apply absolute top-[15px] left-[15px] text-[14px] font-normal text-second-color;
+}
+
+.input:focus ~ .label,
+.input:not(:focus):not(:placeholder-shown):valid ~ .label {
+  @apply top-0 left-[12px] translate-y-[-50%] bg-main-bgcolor  px-[4px] text-[12px] font-normal;
+}
+.input:focus,
+.input:not(:focus):not(:placeholder-shown):invalid {
+  @apply pl-[15px];
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid {
+  @apply border-[2px] border-error-color;
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid ~ .label {
+  @apply top-0 left-[12px] translate-y-[-50%] bg-main-bgcolor px-[4px] text-[12px] font-normal  text-error-color;
+}
